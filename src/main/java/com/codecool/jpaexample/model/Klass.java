@@ -4,14 +4,27 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "Class")
 public class Klass {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     private String name;
+
+    @Enumerated // ordinal is default
+    private CCLocation location;
+
+    @OneToMany(mappedBy="klass")
     private Set<Student> students = new HashSet<>();
 
     public Klass() {}
 
-    public Klass(String name) {
+    public Klass(String name, CCLocation location) {
         this.name = name;
+        this.location = location;
     }
 
     public String getName() {
